@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Приглашение на свидание 💖</title>
+  <!-- Google Fonts: Nunito & Comfortaa -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header preview text matching reference -->
+  <div class="top-preview-bar" id="top-preview-bar">
+    <span id="preview-bar-text">Так получатель увидит открытие — проверьте в превью</span>
+  </div>
+
+  <!-- Main Mobile Phone Wrapper -->
+  <main class="phone-frame-wrapper">
+    <div class="phone-device" id="phone-device">
+      
+      <!-- Top Dynamic Island / Camera Notch -->
+      <div class="dynamic-island">
+        <div class="camera-lens"></div>
+      </div>
+
+      <!-- Floating decorative pastel blue flowers in background -->
+      <div class="bg-decorations" aria-hidden="true">
+        <div class="flower flower-1"><img src="assets/flower_blue.png" alt=""></div>
+        <div class="flower flower-2"><img src="assets/flower_blue.png" alt=""></div>
+        <div class="flower flower-3"><img src="assets/flower_blue.png" alt=""></div>
+        <div class="flower flower-4"><img src="assets/flower_blue.png" alt=""></div>
+      </div>
+
+      <!-- Screens Container -->
+      <div class="screens-container">
+
+        <!-- ============================================================ -->
+        <!-- SCREEN 1: PIN CODE SCREEN (3110) -->
+        <!-- ============================================================ -->
+        <section class="screen active" id="screen-pin">
+          <div class="screen-content pin-screen-content">
+            <h1 class="pin-title">
+              <span class="custom-g">g</span>ата начала отношений
+            </h1>
+            <p class="pin-subtitle">4 цифры</p>
+
+            <!-- 4 PIN Underline Slots -->
+            <div class="pin-dots-container" id="pin-dots">
+              <div class="pin-slot" data-slot="0">
+                <span class="pin-dash"></span>
+                <span class="pin-heart">❤️</span>
+              </div>
+              <div class="pin-slot" data-slot="1">
+                <span class="pin-dash"></span>
+                <span class="pin-heart">❤️</span>
+              </div>
+              <div class="pin-slot" data-slot="2">
+                <span class="pin-dash"></span>
+                <span class="pin-heart">❤️</span>
+              </div>
+              <div class="pin-slot" data-slot="3">
+                <span class="pin-dash"></span>
+                <span class="pin-heart">❤️</span>
+              </div>
+            </div>
+
+            <!-- 3x4 Keypad Grid matching reference -->
+            <div class="keypad-grid" id="keypad">
+              <button class="key-btn" data-key="1">1</button>
+              <button class="key-btn" data-key="2">2</button>
+              <button class="key-btn" data-key="3">3</button>
+
+              <button class="key-btn" data-key="4">4</button>
+              <button class="key-btn" data-key="5">5</button>
+              <button class="key-btn" data-key="6">6</button>
+
+              <button class="key-btn" data-key="7">7</button>
+              <button class="key-btn" data-key="8">8</button>
+              <button class="key-btn" data-key="9">9</button>
+
+              <button class="key-btn" data-key="0">0</button>
+              <button class="key-btn key-backspace" data-key="back" aria-label="Стереть">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                  <line x1="18" y1="9" x2="12" y2="15"></line>
+                  <line x1="12" y1="9" x2="18" y2="15"></line>
+                </svg>
+              </button>
+              <div class="key-spacer"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SCREEN 2: QUESTION SCREEN (Да / Нет) -->
+        <!-- ============================================================ -->
+        <section class="screen" id="screen-question">
+          <div class="scalloped-card">
+            <!-- Scalloped SVG background contour -->
+            <svg class="scallop-border-svg" viewBox="0 0 350 560" preserveAspectRatio="none" aria-hidden="true"></svg>
+            
+            <div class="card-inner">
+              <div class="sticker-container">
+                <img src="assets/cats_hug_clean.png" alt="Обнимающиеся котики" class="sticker-img float-anim">
+              </div>
+
+              <h2 class="card-title">
+                ты пойдешь со мной на свидание?
+              </h2>
+
+              <div class="buttons-stack">
+                <button class="btn btn-pink" id="btn-yes">
+                  Да
+                </button>
+
+                <!-- Wrapper for No button and Kiss stamp -->
+                <div class="no-btn-zone" id="no-btn-zone">
+                  <button class="btn btn-grey" id="btn-no">
+                    Нет
+                  </button>
+                  <div class="kiss-target" id="kiss-target" title="Чмок! 💋">
+                    <img src="assets/kiss_clean.png" alt="Поцелуй" class="kiss-img" id="kiss-img">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SCREEN 3: REACTION SCREEN (подожди, ты действительно сказала да?) -->
+        <!-- ============================================================ -->
+        <section class="screen" id="screen-reaction">
+          <div class="scalloped-card">
+            <svg class="scallop-border-svg" viewBox="0 0 350 560" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+            <div class="card-inner">
+              <div class="sticker-container">
+                <img src="assets/cats_cuddle_clean.png" alt="Котики вместе" class="sticker-img cuddle-anim">
+              </div>
+
+              <h2 class="card-title">
+                подожди, ты действительно сказала да?
+              </h2>
+
+              <p class="card-subtitle">
+                Я был готов что скажешь "нет" ахах
+              </p>
+
+              <div class="buttons-stack">
+                <button class="btn btn-pink" id="btn-reaction-yes">
+                  Да Да дА
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SCREEN 4: DATE & TIME SELECTION SCREEN -->
+        <!-- ============================================================ -->
+        <section class="screen" id="screen-date">
+          <div class="scalloped-card">
+            <svg class="scallop-border-svg" viewBox="0 0 350 560" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+            <div class="card-inner">
+              <div class="sticker-container">
+                <img src="assets/chibi_heart_clean.png" alt="Сердечко" class="sticker-img heart-anim">
+              </div>
+
+              <h2 class="card-title">
+                и так... когда ты свободна?
+              </h2>
+
+              <form class="date-form" id="date-form" onsubmit="event.preventDefault();">
+                <div class="input-field-group">
+                  <label for="input-date" class="field-label">Дата</label>
+                  <div class="input-wrapper">
+                    <input type="text" id="input-date" class="pink-input" placeholder="15.06.2026" value="15.06.2026" required>
+                    <span class="input-icon">📅</span>
+                  </div>
+                </div>
+
+                <div class="input-field-group">
+                  <label for="input-time" class="field-label">Время</label>
+                  <div class="input-wrapper">
+                    <input type="text" id="input-time" class="pink-input" placeholder="19:30" value="19:30" required>
+                    <span class="input-icon">⏰</span>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-pink" id="btn-submit-date">
+                  Выбери дату 💖
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SCREEN 5: SUCCESS / SENT CONFIRMATION SCREEN -->
+        <!-- ============================================================ -->
+        <section class="screen" id="screen-success">
+          <div class="scalloped-card">
+            <svg class="scallop-border-svg" viewBox="0 0 350 560" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+            <div class="card-inner">
+              <div class="sticker-container">
+                <img src="assets/cats_hug_clean.png" alt="Ура!" class="sticker-img float-anim">
+              </div>
+
+              <h2 class="card-title success-headline">
+                Ура! Это свидание! 🥰🥂✨
+              </h2>
+
+              <div class="date-summary-box">
+                <div class="summary-row">
+                  <span class="summary-label">📅 Дата:</span>
+                  <span class="summary-val" id="summary-date-val">15.06.2026</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">⏰ Время:</span>
+                  <span class="summary-val" id="summary-time-val">19:30</span>
+                </div>
+              </div>
+
+              <!-- Telegram Notification Status -->
+              <div class="tg-status-card" id="tg-status-card">
+                <div class="status-indicator" id="status-indicator">
+                  <span class="spinner" id="status-spinner"></span>
+                  <span class="status-text" id="status-text">Отправка в Telegram...</span>
+                </div>
+              </div>
+
+              <!-- Direct Telegram Link Button -->
+              <a href="#" class="btn btn-tg" id="btn-tg-direct" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                </svg>
+                <span>Написать @vor1ngsbiboi</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Confetti Canvas for Explosions -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Floating Kisses & Hearts Container -->
+  <div id="particles-overlay" aria-hidden="true"></div>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

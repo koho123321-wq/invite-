@@ -1,0 +1,799 @@
+/* ==========================================================================
+   ПРИГЛАШЕНИЕ НА СВИДАНИЕ — СТИЛИ (PIXEL-PERFECT REPLICA)
+   ========================================================================== */
+
+:root {
+  --color-phone-border: #fec6d5;
+  --color-phone-bg: #fdf1f6;
+  --color-card-bg: #ffffff;
+  --color-card-shadow: rgba(235, 170, 190, 0.28);
+  --color-text-main: #201d24;
+  --color-text-muted: #7b6b79;
+  --color-pink-btn-start: #f6528b;
+  --color-pink-btn-end: #fb71a0;
+  --color-pink-btn-shadow: rgba(246, 82, 139, 0.35);
+  --color-grey-btn-bg: #c8c6d6;
+  --color-grey-btn-text: #494657;
+  --color-input-border: #f6b5c9;
+  --color-island: #f2cad9;
+  --color-camera: #baa3af;
+  --font-main: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: 'Nunito', 'Comfortaa', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: #fceef4;
+  font-family: var(--font-main);
+  color: var(--color-text-main);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding-bottom: 24px;
+}
+
+/* ==========================================================================
+   TOP PREVIEW BAR (from reference screenshot)
+   ========================================================================== */
+.top-preview-bar {
+  width: 100%;
+  max-width: 460px;
+  text-align: center;
+  padding: 12px 16px 8px;
+  font-size: 13.5px;
+  line-height: 1.35;
+  font-weight: 600;
+  color: #7b2c4c;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+/* ==========================================================================
+   MAIN PHONE FRAME CONTAINER
+   ========================================================================== */
+.phone-frame-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 440px;
+  padding: 0 10px;
+}
+
+.phone-device {
+  position: relative;
+  width: 100%;
+  max-width: 410px;
+  min-height: 740px;
+  height: 86vh;
+  max-height: 840px;
+  background-color: var(--color-phone-bg);
+  border: 8px solid var(--color-phone-border);
+  border-radius: 46px;
+  box-shadow: 0 20px 48px rgba(240, 160, 185, 0.3), 0 4px 12px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive adjustment for small mobile screens */
+@media (max-width: 480px) {
+  body {
+    padding: 0;
+    background-color: var(--color-phone-bg);
+  }
+  .phone-frame-wrapper {
+    padding: 0;
+    height: 100vh;
+    max-width: 100%;
+  }
+  .phone-device {
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .top-preview-bar {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   DYNAMIC ISLAND / NOTCH
+   ========================================================================== */
+.dynamic-island {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 112px;
+  height: 28px;
+  background-color: var(--color-island);
+  border-radius: 18px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 18px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.camera-lens {
+  width: 9px;
+  height: 9px;
+  background-color: var(--color-camera);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================================================================
+   BACKGROUND FLOATING FLOWERS
+   ========================================================================== */
+.bg-decorations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.flower {
+  position: absolute;
+  opacity: 0.9;
+}
+
+.flower img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.flower-1 {
+  top: 55px;
+  left: 32px;
+  width: 58px;
+  transform: rotate(-10deg);
+}
+
+.flower-2 {
+  top: 165px;
+  right: -10px;
+  width: 62px;
+  transform: rotate(25deg);
+}
+
+.flower-3 {
+  top: 340px;
+  right: 18px;
+  width: 54px;
+  transform: rotate(15deg);
+}
+
+.flower-4 {
+  bottom: 80px;
+  left: -15px;
+  width: 68px;
+  transform: rotate(-20deg);
+}
+
+/* ==========================================================================
+   SCREENS VIEWPORT & TRANSITIONS
+   ========================================================================== */
+.screens-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 18px 24px;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.96) translateY(12px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.4s;
+  pointer-events: none;
+}
+
+.screen.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   SCREEN 1: PIN SCREEN
+   ========================================================================== */
+.pin-screen-content {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.pin-title {
+  font-family: var(--font-display);
+  font-size: 24.5px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  text-align: center;
+  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+}
+
+.custom-g {
+  font-family: var(--font-main);
+  font-weight: 800;
+}
+
+.pin-subtitle {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* 4 PIN Dashes */
+.pin-dots-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 36px;
+  justify-content: center;
+  align-items: center;
+  min-height: 28px;
+  transition: transform 0.2s ease;
+}
+
+.pin-slot {
+  position: relative;
+  width: 36px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pin-dash {
+  width: 32px;
+  height: 2.5px;
+  background-color: #f4aabf;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.pin-heart {
+  position: absolute;
+  font-size: 16px;
+  opacity: 0;
+  transform: scale(0.2);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pin-slot.filled .pin-dash {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.pin-slot.filled .pin-heart {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* PIN Error Shake Animation */
+.pin-dots-container.shake {
+  animation: pinShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes pinShake {
+  0%, 100% { transform: translateX(0); }
+  15%, 45%, 75% { transform: translateX(-8px); }
+  30%, 60%, 90% { transform: translateX(8px); }
+}
+
+/* Keypad Grid */
+.keypad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px 14px;
+  width: 100%;
+}
+
+.key-btn {
+  background-color: #ffffff;
+  border: 1.5px solid #edf0f5;
+  border-radius: 20px;
+  height: 56px;
+  font-family: var(--font-main);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  transition: transform 0.12s ease, background-color 0.12s ease, box-shadow 0.12s ease;
+  outline: none;
+}
+
+.key-btn:active {
+  transform: scale(0.93);
+  background-color: #fff4f8;
+  border-color: #f7bfd2;
+  box-shadow: 0 1px 2px rgba(246, 82, 139, 0.2);
+}
+
+.key-backspace {
+  color: #201d24;
+}
+
+.key-spacer {
+  visibility: hidden;
+}
+
+/* ==========================================================================
+   SCALLOPED CLOUD CARD (Screens 2, 3, 4, 5)
+   ========================================================================== */
+.scalloped-card {
+  position: relative;
+  width: 100%;
+  max-width: 345px;
+  margin: 0 auto;
+  min-height: 530px;
+  background-color: var(--color-card-bg);
+  border-radius: 36px;
+  box-shadow: 0 12px 32px var(--color-card-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 22px 28px;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+/* SVG Scalloped Border overlay for exact wavy contours */
+.scallop-border-svg {
+  position: absolute;
+  inset: -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  pointer-events: none;
+  z-index: -1;
+  filter: drop-shadow(0 10px 24px var(--color-card-shadow));
+}
+
+.card-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  justify-content: space-between;
+}
+
+/* Sticker Illustration */
+.sticker-container {
+  width: 100%;
+  max-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.sticker-img {
+  max-width: 175px;
+  max-height: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.05));
+  will-change: transform;
+}
+
+/* Sticker Floating Animations */
+.float-anim {
+  animation: floatCat 3s ease-in-out infinite;
+}
+
+@keyframes floatCat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+.cuddle-anim {
+  animation: cuddleWobble 2.6s ease-in-out infinite;
+}
+
+@keyframes cuddleWobble {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(2deg) scale(1.03); }
+}
+
+.heart-anim {
+  animation: pulseHeart 2.2s ease-in-out infinite;
+}
+
+@keyframes pulseHeart {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Card Titles and Subtitles */
+.card-title {
+  font-family: var(--font-display);
+  font-size: 21.5px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+  margin-bottom: 14px;
+}
+
+.card-subtitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+  margin-bottom: 22px;
+}
+
+/* ==========================================================================
+   BUTTONS (Да / Нет / Pink Pills)
+   ========================================================================== */
+.buttons-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: auto;
+  align-items: center;
+}
+
+.btn {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 9999px;
+  font-family: var(--font-main);
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              box-shadow 0.18s ease,
+              opacity 0.2s ease;
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn-pink {
+  background: linear-gradient(180deg, var(--color-pink-btn-start) 0%, var(--color-pink-btn-end) 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 24px var(--color-pink-btn-shadow);
+}
+
+.btn-pink:hover {
+  box-shadow: 0 10px 28px rgba(246, 82, 139, 0.45);
+}
+
+.btn-grey {
+  background-color: var(--color-grey-btn-bg);
+  color: var(--color-grey-btn-text);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   BUTTON «НЕТ» -> KISS MARK REACTION MECHANIC
+   ========================================================================== */
+.no-btn-zone {
+  position: relative;
+  width: 100%;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-no {
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When "Нет" is triggered, hide the button and reveal the kiss */
+.no-btn-zone.kissed .btn-no {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.2);
+}
+
+.kiss-target {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+  z-index: 20;
+}
+
+.no-btn-zone.kissed .kiss-target {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.kiss-img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 8px rgba(220, 20, 60, 0.3));
+  transition: transform 0.15s ease;
+}
+
+.kiss-target:active .kiss-img {
+  transform: scale(1.2);
+}
+
+/* Button "Да" Shaking animation (Тряска перед взрывом) */
+.btn-rumble-shake {
+  animation: rumble 0.5s ease-in-out both;
+}
+
+@keyframes rumble {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  10%, 30%, 50%, 70%, 90% { transform: scale(1.04) translate(-4px, 1px) rotate(-1deg); }
+  20%, 40%, 60%, 80% { transform: scale(1.04) translate(4px, -1px) rotate(1deg); }
+}
+
+/* ==========================================================================
+   SCREEN 4: DATE & TIME INPUTS
+   ========================================================================== */
+.date-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.input-field-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #7b2646;
+  margin-left: 6px;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.pink-input {
+  width: 100%;
+  height: 48px;
+  background-color: #ffffff;
+  border: 1.5px solid var(--color-input-border);
+  border-radius: 18px;
+  padding: 0 44px 0 18px;
+  font-family: var(--font-main);
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pink-input:focus {
+  border-color: var(--color-pink-btn-start);
+  box-shadow: 0 0 0 4px rgba(246, 82, 139, 0.15);
+}
+
+.input-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   SCREEN 5: SUCCESS / SENT
+   ========================================================================== */
+.success-headline {
+  font-size: 23px;
+  color: #d12967;
+  margin-bottom: 12px;
+}
+
+.date-summary-box {
+  background-color: #fff2f6;
+  border: 1.5px dashed #f8abc1;
+  border-radius: 20px;
+  padding: 14px 20px;
+  width: 100%;
+  margin: 10px 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.summary-label {
+  color: #8b3456;
+}
+
+.summary-val {
+  color: var(--color-text-main);
+  background-color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+}
+
+.tg-status-card {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background-color: #f7f7fa;
+}
+
+.status-indicator.success {
+  background-color: #eafaf1;
+  color: #1e824c;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ddd;
+  border-top-color: var(--color-pink-btn-start);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.btn-tg {
+  background: linear-gradient(135deg, #2aabee 0%, #229ed9 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(34, 158, 217, 0.35);
+  gap: 8px;
+}
+
+.btn-tg:hover {
+  box-shadow: 0 10px 24px rgba(34, 158, 217, 0.45);
+}
+
+/* ==========================================================================
+   PARTICLES & CONFETTI OVERLAYS
+   ========================================================================== */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 100;
+}
+
+#particles-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  overflow: hidden;
+}
+
+.floating-kiss-particle {
+  position: absolute;
+  pointer-events: none;
+  animation: floatUpKiss 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes floatUpKiss {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% - 60px)) scale(1.1) rotate(var(--rot));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + calc(var(--dx) * 1.5)), calc(-50% - 130px)) scale(0.9) rotate(var(--rot));
+  }
+}
+
+.floating-toast-msg {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  color: #d12967;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(209, 41, 103, 0.25);
+  pointer-events: none;
+  animation: toastFade 1.8s ease forwards;
+  z-index: 200;
+  white-space: nowrap;
+}
+
+@keyframes toastFade {
+  0% { opacity: 0; transform: translate(-50%, 0) scale(0.8); }
+  20% { opacity: 1; transform: translate(-50%, -15px) scale(1); }
+  80% { opacity: 1; transform: translate(-50%, -25px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -40px) scale(0.9); }
+}
