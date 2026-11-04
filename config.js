@@ -12,6 +12,13 @@ const CONFIG = {
   // Токен твоего Telegram-бота (@vavagaga222_bot)
   telegramBotToken: "9240873632:AAG_cp6SVKL0BARvein4csNKs4mK15sdx0o",
 
-  // Твой числовой Chat ID
+  // Список Chat ID для получения ответов:
+  // Сообщения придут одновременно обоим получателям!
+  telegramChatIds: [
+    "6156521506",
+    "8661100780"
+  ],
+
+  // Для обратной совместимости
   telegramChatId: "6156521506"
 };

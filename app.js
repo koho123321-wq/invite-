@@ -13,10 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
     pinTarget: (typeof CONFIG !== 'undefined' && CONFIG.pinCode) ? CONFIG.pinCode : '3110',
     kissCount: 0,
     isKissed: false,
-    selectedDate: '15.06.2026',
+    selectedPlace: 'Парк',
+    selectedDate: '05.11.2026',
     selectedTime: '19:30',
     botToken: (typeof CONFIG !== 'undefined' && CONFIG.telegramBotToken) ? CONFIG.telegramBotToken : (localStorage.getItem('tg_bot_token') || ''),
-    chatId: (typeof CONFIG !== 'undefined' && CONFIG.telegramChatId) ? CONFIG.telegramChatId : (localStorage.getItem('tg_chat_id') || ''),
+    chatIds: (typeof CONFIG !== 'undefined' && Array.isArray(CONFIG.telegramChatIds)) 
+      ? CONFIG.telegramChatIds 
+      : ['6156521506', '8661100780'],
     username: (typeof CONFIG !== 'undefined' && CONFIG.telegramUsername) ? CONFIG.telegramUsername : 'vor1ngsbiboi'
   };
 
@@ -25,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'screen-pin': 'Так получатель увидит открытие — проверьте в превью',
     'screen-question': 'Нажмите «Да» / «Нет» в превью — так увидит получатель',
     'screen-reaction': 'Так выглядит реакция после согласия',
+    'screen-place': 'Куда пойдём на свидание?',
     'screen-date': 'Выбор удобной даты и времени свидания',
     'screen-success': 'Свидание успешно назначено! 💖'
   };
@@ -418,26 +422,125 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnReactionYes) {
     btnReactionYes.addEventListener('click', () => {
       Sound.keyClick();
+      goToScreen('screen-place');
+    });
+  }
+
+  // ------------------------------------------------------------------------
+  // 7.5 SCREEN 4: PLACE SELECTION (куда пойдём?)
+  // ------------------------------------------------------------------------
+  const placesGrid = document.getElementById('places-grid');
+  const btnNextPlace = document.getElementById('btn-next-place');
+
+  if (placesGrid) {
+    placesGrid.addEventListener('click', (e) => {
+      const card = e.target.closest('.place-card');
+      if (!card) return;
+      Sound.keyClick();
+      document.querySelectorAll('.place-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      state.selectedPlace = card.dataset.place || 'Парк';
+    });
+  }
+
+  if (btnNextPlace) {
+    btnNextPlace.addEventListener('click', () => {
+      Sound.keyClick();
       goToScreen('screen-date');
     });
   }
 
   // ------------------------------------------------------------------------
-  // 8. SCREEN 4: DATE & TIME SELECTION + TELEGRAM SUBMISSION
+  // 8. SCREEN 5: DATE & TIME SELECTION + TELEGRAM SUBMISSION
   // ------------------------------------------------------------------------
   const dateForm = document.getElementById('date-form');
   const inputDate = document.getElementById('input-date');
   const inputTime = document.getElementById('input-time');
+  const nativeDatePicker = document.getElementById('native-date-picker');
+  const calendarIcon = document.getElementById('calendar-icon');
+  const summaryPlaceVal = document.getElementById('summary-place-val');
   const summaryDateVal = document.getElementById('summary-date-val');
   const summaryTimeVal = document.getElementById('summary-time-val');
+
+  // Sync native date picker to text field
+  if (nativeDatePicker && inputDate) {
+    nativeDatePicker.addEventListener('change', () => {
+      const val = nativeDatePicker.value; // YYYY-MM-DD
+      if (val) {
+        const [y, m, d] = val.split('-');
+        inputDate.value = `${d}.${m}.${y}`;
+      }
+    });
+  }
+
+  if (calendarIcon && nativeDatePicker) {
+    calendarIcon.addEventListener('click', () => {
+      try {
+        if (typeof nativeDatePicker.showPicker === 'function') {
+          nativeDatePicker.showPicker();
+        } else {
+          nativeDatePicker.focus();
+        }
+      } catch (_) {
+        nativeDatePicker.focus();
+      }
+    });
+  }
+
+  // Validate date: strictly 05.11.2026 to 31.11.2026 (November 2026)
+  function isValidNovemberDate(str) {
+    if (!str) return false;
+    let d, m, y;
+    if (str.includes('.')) {
+      const parts = str.split('.');
+      if (parts.length < 3) return false;
+      d = parseInt(parts[0], 10);
+      m = parseInt(parts[1], 10);
+      y = parseInt(parts[2], 10);
+    } else if (str.includes('-')) {
+      const parts = str.split('-');
+      if (parts.length < 3) return false;
+      y = parseInt(parts[0], 10);
+      m = parseInt(parts[1], 10);
+      d = parseInt(parts[2], 10);
+    } else {
+      return false;
+    }
+
+    if (isNaN(d) || isNaN(m) || isNaN(y)) return false;
+    if (y !== 2026) return false;
+    if (m !== 11) return false;
+    if (d < 5 || d > 31) return false;
+
+    return true;
+  }
 
   if (dateForm) {
     dateForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      state.selectedDate = inputDate.value.trim() || '15.06.2026';
+      const enteredDate = inputDate.value.trim();
+
+      // Check date restriction: only 5.11.2026 - 31.11.2026
+      if (!isValidNovemberDate(enteredDate)) {
+        Sound.errorBuzz();
+        inputDate.style.borderColor = '#ff3366';
+        inputDate.style.boxShadow = '0 0 0 4px rgba(255, 51, 102, 0.2)';
+        
+        const rect = inputDate.getBoundingClientRect();
+        showToast('⚠️ Выбери дату с 5 по 30 ноября 2026! 💕', rect.left + rect.width / 2, rect.top - 10);
+
+        setTimeout(() => {
+          inputDate.style.borderColor = '';
+          inputDate.style.boxShadow = '';
+        }, 1200);
+        return;
+      }
+
+      state.selectedDate = enteredDate;
       state.selectedTime = inputTime.value.trim() || '19:30';
 
+      if (summaryPlaceVal) summaryPlaceVal.textContent = state.selectedPlace;
       if (summaryDateVal) summaryDateVal.textContent = state.selectedDate;
       if (summaryTimeVal) summaryTimeVal.textContent = state.selectedTime;
 
@@ -445,42 +548,48 @@ document.addEventListener('DOMContentLoaded', () => {
       Sound.celebrate();
       launchConfettiBurst(0.5, 0.5);
 
-      // Move to Screen 5
+      // Move to Screen 6
       goToScreen('screen-success');
 
-      // Send to Telegram silently in background
+      // Send to Telegram silently in background to both chat IDs
       await sendTelegramNotification();
     });
   }
 
   // ------------------------------------------------------------------------
-  // 9. TELEGRAM BOT API DISPATCHER (SILENT BACKGROUND DISPATCH)
+  // 9. TELEGRAM BOT API DISPATCHER (SILENT DUAL-CHAT DISPATCH)
   // ------------------------------------------------------------------------
   async function sendTelegramNotification() {
     const token = state.botToken || (typeof CONFIG !== 'undefined' ? CONFIG.telegramBotToken : '');
-    const chat = state.chatId || (typeof CONFIG !== 'undefined' ? CONFIG.telegramChatId : '');
+    const chatIds = (typeof CONFIG !== 'undefined' && Array.isArray(CONFIG.telegramChatIds)) 
+      ? CONFIG.telegramChatIds 
+      : (state.chatIds || ['6156521506', '8661100780']);
 
     const messageHtml = 
       `🎉 <b>Ура! Новое свидание подтверждено!</b>\n\n` +
       `💖 <b>Она сказала ДА!</b>\n` +
+      `📍 <b>Место:</b> ${state.selectedPlace}\n` +
       `📅 <b>Дата:</b> ${state.selectedDate}\n` +
       `⏰ <b>Время:</b> ${state.selectedTime}\n` +
       `💋 <b>Попыток нажать «Нет»:</b> ${state.kissCount}\n\n` +
       `💌 <i>Приглашение на свидание</i>`;
 
-    if (token && chat) {
-      try {
-        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chat,
-            text: messageHtml,
-            parse_mode: 'HTML'
-          })
-        });
-      } catch (err) {
-        console.error('Telegram notification error:', err);
+    if (token && chatIds && chatIds.length) {
+      for (const cid of chatIds) {
+        if (!cid) continue;
+        try {
+          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: cid,
+              text: messageHtml,
+              parse_mode: 'HTML'
+            })
+          });
+        } catch (err) {
+          console.error(`Telegram notification error for ${cid}:`, err);
+        }
       }
     }
   }

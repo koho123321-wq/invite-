@@ -159,7 +159,64 @@
         </section>
 
         <!-- ============================================================ -->
-        <!-- SCREEN 4: DATE & TIME SELECTION SCREEN -->
+        <!-- SCREEN 4: PLACE SELECTION SCREEN (куда пойдём?) -->
+        <!-- ============================================================ -->
+        <section class="screen" id="screen-place">
+          <div class="scalloped-card">
+            <svg class="scallop-border-svg" viewBox="0 0 350 560" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+            <div class="card-inner">
+              <div class="place-header">
+                <h2 class="card-title place-title">
+                  <span class="custom-g">к</span>уда пойдём?
+                </h2>
+                <p class="card-subtitle place-subtitle">
+                  Выбери место
+                </p>
+              </div>
+
+              <!-- 2x2 Places Grid matching reference -->
+              <div class="places-grid" id="places-grid">
+                <div class="place-card selected" data-place="Парк">
+                  <div class="place-icon-wrapper">
+                    <img src="assets/place_park.png" alt="Парк" class="place-icon">
+                  </div>
+                  <span class="place-label">Парк</span>
+                </div>
+
+                <div class="place-card" data-place="Дома">
+                  <div class="place-icon-wrapper">
+                    <img src="assets/place_home.png" alt="Дома" class="place-icon">
+                  </div>
+                  <span class="place-label">Дома</span>
+                </div>
+
+                <div class="place-card" data-place="Кино">
+                  <div class="place-icon-wrapper">
+                    <img src="assets/place_cinema.png" alt="Кино" class="place-icon">
+                  </div>
+                  <span class="place-label">Кино</span>
+                </div>
+
+                <div class="place-card" data-place="Ебаться на санаторке">
+                  <div class="place-icon-wrapper">
+                    <img src="assets/place_city.png" alt="Санаторка" class="place-icon">
+                  </div>
+                  <span class="place-label place-multiline">Ебаться на санаторке</span>
+                </div>
+              </div>
+
+              <div class="buttons-stack">
+                <button class="btn btn-pink" id="btn-next-place">
+                  Дальше 💖
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SCREEN 5: DATE & TIME SELECTION SCREEN -->
         <!-- ============================================================ -->
         <section class="screen" id="screen-date">
           <div class="scalloped-card">
@@ -178,9 +235,11 @@
                 <div class="input-field-group">
                   <label for="input-date" class="field-label">Дата</label>
                   <div class="input-wrapper">
-                    <input type="text" id="input-date" class="pink-input" placeholder="15.06.2026" value="15.06.2026" required>
-                    <span class="input-icon">📅</span>
+                    <input type="text" id="input-date" class="pink-input" placeholder="05.11.2026" value="05.11.2026" required>
+                    <input type="date" id="native-date-picker" class="native-date-hidden" min="2026-11-05" max="2026-11-30" value="2026-11-05" tabindex="-1">
+                    <span class="input-icon clickable" id="calendar-icon" title="Выбрать дату">📅</span>
                   </div>
+                  <span class="field-hint">Доступно: с 5 по 30 ноября 2026</span>
                 </div>
 
                 <div class="input-field-group">
@@ -217,8 +276,12 @@
 
               <div class="date-summary-box">
                 <div class="summary-row">
+                  <span class="summary-label">📍 Место:</span>
+                  <span class="summary-val" id="summary-place-val">Парк</span>
+                </div>
+                <div class="summary-row">
                   <span class="summary-label">📅 Дата:</span>
-                  <span class="summary-val" id="summary-date-val">15.06.2026</span>
+                  <span class="summary-val" id="summary-date-val">05.11.2026</span>
                 </div>
                 <div class="summary-row">
                   <span class="summary-label">⏰ Время:</span>

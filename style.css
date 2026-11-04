@@ -587,7 +587,103 @@ body {
 }
 
 /* ==========================================================================
-   SCREEN 4: DATE & TIME INPUTS
+   SCREEN: PLACE SELECTION (куда пойдём?)
+   ========================================================================== */
+.place-header {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.place-title {
+  margin-bottom: 4px;
+  font-size: 23px;
+}
+
+.place-subtitle {
+  margin-bottom: 12px;
+  font-size: 15.5px;
+}
+
+.places-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.place-card {
+  background-color: #ffffff;
+  border: 1.5px solid var(--color-input-border);
+  border-radius: 20px;
+  min-height: 130px;
+  height: 135px;
+  padding: 14px 6px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.18s ease,
+              background-color 0.18s ease,
+              box-shadow 0.18s ease;
+  user-select: none;
+}
+
+.place-card:hover {
+  transform: translateY(-2px);
+  border-color: #fca5bf;
+}
+
+.place-card:active {
+  transform: scale(0.96);
+}
+
+.place-card.selected {
+  border-color: var(--color-pink-btn-start);
+  border-width: 2px;
+  background-color: #fff4f8;
+  box-shadow: 0 6px 16px rgba(246, 82, 139, 0.22);
+  transform: scale(1.02);
+}
+
+.place-icon-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.place-icon {
+  max-width: 46px;
+  max-height: 48px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+}
+
+.place-card.selected .place-icon {
+  transform: scale(1.1);
+}
+
+.place-label {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  text-align: center;
+  line-height: 1.25;
+}
+
+.place-multiline {
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* ==========================================================================
+   SCREEN 5: DATE & TIME INPUTS
    ========================================================================== */
 .date-form {
   width: 100%;
@@ -645,6 +741,40 @@ body {
   font-size: 18px;
   pointer-events: none;
   opacity: 0.7;
+}
+
+.input-icon.clickable {
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: transform 0.15s ease;
+}
+
+.input-icon.clickable:hover {
+  transform: translateY(-50%) scale(1.15);
+}
+
+.input-icon.clickable:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+.field-hint {
+  font-size: 12px;
+  font-weight: 600;
+  color: #b33966;
+  margin-top: 3px;
+  margin-left: 6px;
+  opacity: 0.9;
+}
+
+.native-date-hidden {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 }
 
 /* ==========================================================================
