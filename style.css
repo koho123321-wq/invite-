@@ -688,51 +688,16 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
 }
 
-.tg-status-card {
-  width: 100%;
-  margin-bottom: 14px;
-}
-
-.status-indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #555;
-  padding: 8px 14px;
-  border-radius: 12px;
-  background-color: #f7f7fa;
-}
-
-.status-indicator.success {
-  background-color: #eafaf1;
-  color: #1e824c;
-}
-
-.spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid #ddd;
-  border-top-color: var(--color-pink-btn-start);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.btn-tg {
-  background: linear-gradient(135deg, #2aabee 0%, #229ed9 100%);
-  color: #ffffff;
-  box-shadow: 0 8px 20px rgba(34, 158, 217, 0.35);
-  gap: 8px;
-}
-
-.btn-tg:hover {
-  box-shadow: 0 10px 24px rgba(34, 158, 217, 0.45);
+.final-love-note {
+  font-size: 16px;
+  font-weight: 700;
+  color: #c7255f;
+  line-height: 1.45;
+  margin-top: 14px;
+  padding: 10px 16px;
+  background-color: #fff5f8;
+  border-radius: 16px;
+  border: 1px solid #ffd4e1;
 }
 
 /* ==========================================================================

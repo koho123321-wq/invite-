@@ -430,9 +430,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const inputTime = document.getElementById('input-time');
   const summaryDateVal = document.getElementById('summary-date-val');
   const summaryTimeVal = document.getElementById('summary-time-val');
-  const statusIndicator = document.getElementById('status-indicator');
-  const statusText = document.getElementById('status-text');
-  const btnTgDirect = document.getElementById('btn-tg-direct');
 
   if (dateForm) {
     dateForm.addEventListener('submit', async (e) => {
@@ -451,20 +448,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // Move to Screen 5
       goToScreen('screen-success');
 
-      // Prepare Telegram Direct Link
-      const tgText = `Привет! Я согласна на свидание! 🥰✨\n\n📅 Дата: ${state.selectedDate}\n⏰ Время: ${state.selectedTime}`;
-      const directTgUrl = `https://t.me/${state.username}?text=${encodeURIComponent(tgText)}`;
-      if (btnTgDirect) {
-        btnTgDirect.href = directTgUrl;
-      }
-
-      // Send to Telegram via Bot API if token is configured
+      // Send to Telegram silently in background
       await sendTelegramNotification();
     });
   }
 
   // ------------------------------------------------------------------------
-  // 9. TELEGRAM BOT API DISPATCHER
+  // 9. TELEGRAM BOT API DISPATCHER (SILENT BACKGROUND DISPATCH)
   // ------------------------------------------------------------------------
   async function sendTelegramNotification() {
     const token = state.botToken || (typeof CONFIG !== 'undefined' ? CONFIG.telegramBotToken : '');
@@ -478,11 +468,9 @@ document.addEventListener('DOMContentLoaded', () => {
       `💋 <b>Попыток нажать «Нет»:</b> ${state.kissCount}\n\n` +
       `💌 <i>Приглашение на свидание</i>`;
 
-    // If Bot Token & Chat ID are provided:
     if (token && chat) {
-      if (statusText) statusText.textContent = 'Отправка в Telegram...';
       try {
-        const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -491,34 +479,10 @@ document.addEventListener('DOMContentLoaded', () => {
             parse_mode: 'HTML'
           })
         });
-
-        const data = await response.json();
-        if (data.ok) {
-          if (statusIndicator) {
-            statusIndicator.className = 'status-indicator success';
-            statusIndicator.innerHTML = '<span>✅ Ответ успешно доставлен тебе в Telegram!</span>';
-          }
-          return;
-        } else {
-          console.warn('Telegram Bot API Error:', data.description);
-        }
       } catch (err) {
-        console.error('Network Error while sending to Telegram:', err);
+        console.error('Telegram notification error:', err);
       }
     }
-
-    // Fallback if bot is not configured:
-    if (statusIndicator) {
-      statusIndicator.className = 'status-indicator';
-      statusIndicator.innerHTML = `<span>💌 Нажми кнопку ниже, чтобы отправить ответ в чат @${state.username}!</span>`;
-    }
-
-    // Automatically trigger Telegram chat tab
-    try {
-      const tgText = `Привет! Я согласна на свидание! 🥰✨\n\n📅 Дата: ${state.selectedDate}\n⏰ Время: ${state.selectedTime}`;
-      const url = `https://t.me/${state.username}?text=${encodeURIComponent(tgText)}`;
-      window.open(url, '_blank');
-    } catch (_) {}
   }
 
   // ------------------------------------------------------------------------
